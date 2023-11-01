@@ -1,0 +1,114 @@
+.popup-fncontainer{min-width:1300px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff;}
+.del-x{width: 20px; text-align: center;}
+.del-no {width: 32px; !important;}
+.xo{font-weight: 500; font-size: 20px;}
+.xxo{color: blue; font-weight: 700; background-color: #008ace; float: right;}
+.spp-but{display: inline-block; padding: 7px 14px; border-radius: 2px; color: #ffffff; margin-bottom: 6px}
+.ta-c-cus {text-align:center;}
+.popup-contss{display: inline-block; width: 15px; height: 15px; border-radius: 50px; border: 1px solid #ff0202; color: #ff0202; font-size: 11px; padding: 1px 5px; margin-top: -2px; margin-right: 8px;}
+.popup-contents-wrap-cus {padding: 40px 30px; max-height: calc(100vh - 60px); overflow-y: auto;}
+.flmf {font-size: 12px;}
+.popup-header .btn-close{cursor: pointer; background:url(../img/common/popup-close.png) #888 no-repeat center center;width: 24px;height: 24px;}
+.add-sel-skill{cursor: pointer; background:url(../img/common/popup-close.png) #888 no-repeat center center;width: 24px;height: 24px;}
+.info-tx{color: #41a7da; font-weight:bold; float:right; margin-top:17px; font-size:12px; margin-right:12px;}
+
+
+.lil-title{font-weight: bold; font-size: 17px; display:inline;}
+.lil-title::before{content:''; background-color:#06aeff; width:3px; height:18px; display:inline-block; margin-top:13px; vertical-align: sub;!important}
+.popup-cont h4.lil-title:before{content:''; background-color:#06aeff; width:3px; height:18px; display:inline-block; margin-top:0px; vertical-align: sub;!important}
+.price{text-align:right;}
+
+.title-line {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-line .add-btn-plus {
+    position: relative;
+    margin-right: 15px;
+    border-radius: 50%;
+    background-color: #1192d1;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.title-line .add-btn-plus span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-radius: 10px;
+	background-color:#fff;
+	width: 20px; height:3px;
+}
+
+.title-line .add-btn-plus span:first-child {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.title-line .add-btn-plus span:last-child {
+    transform: translate(-50%, -50%);
+}
+
+ .tihs { width:87%; border-top: 2px solid #1fabf2; border-collapse: inherit; }
+ .tihs tbody th:first-child {border-left:0;}
+ .tihs tbody td:last-child {border-right:0;}
+ .tihs tbody th { border-left:1px solid #e8e8e8; border-right:1px solid #e8e8e8; padding:4px 7px; font-weight: 500; background-color: #f7f7f7; border-bottom: 1px solid #e8e8e8; height: 35px;}
+ .tihs tbody td { padding:4px 7px; border-bottom:1px solid #e8e8e8; background-color:#fff; height: 35px;}
+.with_text {width:930px !important;}
+
+.exse{position: relative;}
+.exse .btn-sear{display: inline-block; background: url(../img/common/btn-search2.png) no-repeat; width: 16px; height: 14px; margin-right: 10px; position: absolute; top: 10px; right: 0;}
+.skill8{cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 21px;}
+#insertExprtModal {position: pixed; overflow: hidden; height: 700px;}
+
+
+#fn_Image {width : 130px; height: 154px; border: 1px solid #f1f1f1; overflow: hidden;}
+#fn_Image img {width : 100%; height:auto;}
+
+.popup-fnprofile{display: flex; align-items:center; gap:20px; margin-bottom:20px;}
+.popup-fnprofile > a > img{height:120px; flex: 1;}
+
+.Cbtn{background-color: #565656;  margin-right: 10px;}
+
+
+/* 상석 */
+.add-btn{display:block; background-color: #1192d1; color:#fff; padding:5px 20px; border-radius:2px;}
+.delete-btn{display:block; background-color:#565656; color:#fff; padding:5px 20px; border-radius:2px; }
+#profile_Area_free1 {width : 130px; height: 154px; border: 1px solid #f1f1f1; overflow: hidden;}
+#profile_Area_free1 img {width : 100%; height:auto;}
+
+
+.btn-search-img{background: url(../img/common/btn-search2.png)no-repeat; width: 31px; height: 28px; display: inline-block;}
+.exprt{position: relative;}
+.exprt .btn-search2{display: inline-block; background: url(../img/common/btn-search2.png) no-repeat; width: 14px; height: 14px; margin-right: 10px; position: absolute; top: 10px; left: 170px;}
+
+/* 프리랜스수정 스킬 글자 정렬 */
+.free_skill_table{text-align : center;}
+.free_skill_table tr td:first-child{text-align : left}
+/* 프리랜스수정 버튼 */
+.popup-btn-wrap .free_skill_cancel{background-color: #565656;  margin-right: 10px;}
+.popup-btn-wrap .free_skill_update{background-color: #008ace;}
+/* 체크박스 보이게 */
+input[type="checkbox"]{display:inline-block; margin-left: 30px; margin-right : 60px}
+input[type="radio"]{position:relative;}
+#insertExprtModal {
+	position: pixed;
+	overflow: hidden;
+	height: 700px
+}
+/* 스크롤링 */
+.scroll_table_wrap{
+	height: 500px;
+	overflow-y: auto;
+}
+
+.freelance_pop tr{
+	
+}
+.freelance_pop tr th{
+	position:sticky;
+	top:0;
+	
+}

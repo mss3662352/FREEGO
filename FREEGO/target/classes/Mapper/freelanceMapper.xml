@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.java.FREEGO.dao.freelanceMapper">
+	<sql id="etc">
+		(
+	        SELECT STRING_AGG(fc.comment , ', ')
+	        FROM FREELANCE_CAREER FC
+	        WHERE FC.freelance_id = F.id
+	    )
+	</sql>
+	<sql id="career">
+		COALESCE(
+	        	NULLIF(
+			        CONCAT(
+			            CASE
+			                WHEN CD.total_months / 12 &gt; 0 THEN CAST(CD.total_months / 12 AS NVARCHAR(MAX)) + N'년 '
+			                ELSE N''
+			            END,
+			            CASE
+			                WHEN CD.total_months % 12 &gt; 0 THEN CAST(CD.total_months % 12 AS NVARCHAR(MAX)) + N'개월'
+			                ELSE N''
+			            END
+			        ), ''
+	      		), '경력없음'
+		)
+	</sql>
+	<sql id="skill_name">
+		(
+	        SELECT STRING_AGG(CC.NAME, ', ') within group(ORDER by s.level, CC3.ord, CC2.ord)
+	        FROM SKILL S
+	        LEFT JOIN COMMON_CODE CC ON S.skill_code = CC.CODE
+	        LEFT JOIN COMMON_CODE CC2 ON CC.code= CC2.super_code 
+	        LEFT JOIN COMMON_CODE CC3 ON CC2.code = CC3.super_code
+	        WHERE S.freelance_id = F.id
+	    )
+	</sql>
+	<sql id="grade">
+		(
+		CASE
+		WHEN CD.total_months &lt; 48 OR CD.total_months IS NULL THEN '초급' <!-- 4년 미만 -->
+		WHEN CD.total_months &lt; 84 THEN '중급' <!-- 4년 이상 7년 미만 -->
+		WHEN CD.total_months &lt; 120 THEN '고급' <!-- 7년 이상 10년 미만 -->
+		ELSE '특급' <!-- 10년 이상 -->
+		END
+		)
+	</sql>
+	<sql id="searchCondition">
+	    <if test="keyword != null and keyword !=''">
+	        <choose>
+	            <when test='option=="N"'>
+	                AND F.name LIKE '%' + #{keyword} + '%'
+	            </when>
+	            <when test='option=="S"'>
+	                AND <include refid="skill_name"/> LIKE '%' + #{keyword} + '%'
+	            </when>
+	            <when test='option=="C"'>
+	                AND <include refid="career"/> LIKE '%' + #{keyword} + '%'
+	            </when>
+	            <when test='option=="G"'>
+	                AND <include refid="grade"/> LIKE '%' + #{keyword} + '%'
+	            </when>
+	            <when test='option=="E"'>
+	            	AND <include refid="etc"/> LIKE '%' + #{keyword} + '%'
+	            </when>
+	            <when test='option=="P"'>
+	            	AND F.project LIKE '%' + #{keyword} + '%'
+	            </when>
+	            <otherwise>
+	                AND (
+	                    F.name LIKE '%' + #{keyword} + '%'
+	                    OR F.telephone LIKE '%' + #{keyword} + '%'
+	                    OR F.email LIKE '%' + #{keyword} + '%'
+	                    OR <include refid="career"/> LIKE '%' + #{keyword} + '%'
+	                    OR <include refid="skill_name"/> LIKE '%' + #{keyword} + '%'
+	                    OR <include refid="grade"/> LIKE '%' + #{keyword} + '%'
+	                    OR <include refid="etc"/> LIKE '%' + #{keyword} + '%'
+	                    OR F.project LIKE '%' + #{keyword} + '%'
+	                )
+	            </otherwise>
+	        </choose>
+	    </if>
+	</sql>
+ 	<!-- 1. 프리랜스 리스트 검색조회-->
+	<select id="selectAll" parameterType="SearchCondition" resultType="FreelanceDto">
+		WITH CareerDuration AS (
+		    SELECT
+		        FC.freelance_id,
+		        SUM(DATEDIFF(MONTH, FC.start_date, FC.end_date)) AS total_months
+		    FROM FREELANCE_CAREER FC
+		    GROUP BY FC.freelance_id
+		),
+		RankedFreelance AS (
+		    SELECT
+		        F.id,
+		        F.name,
+		        F.registration_date,
+		        F.telephone,
+		        F.email,
+		        <include refid="career"/> AS career,
+		        <include refid="skill_name"/> AS skill_name,
+		        <include refid="grade"/> AS grade,
+		        ROW_NUMBER() OVER (ORDER BY F.registration_date DESC, f.id DESC) AS RowNum
+		    FROM FREELANCE F
+		    LEFT JOIN CareerDuration CD ON F.id = CD.freelance_id
+		    LEFT JOIN SKILL S ON F.id = S.freelance_id
+		    WHERE 1=1 <include refid="searchCondition"/>
+		    GROUP BY F.id, F.name, F.registration_date, F.telephone, F.email, CD.total_months
+	    )
+		SELECT * FROM RankedFreelance
+		WHERE RowNum BETWEEN ((ISNULL(#{page}, 0) - 1) * #{pageSize} + 1) AND (ISNULL(#{page}, 0) * #{pageSize})
+		ORDER BY RowNum;
+	</select>
+	<!-- 2. 프리랜스 검색 리스트 개수 -->
+	<select id="searchResultCnt" parameterType="SearchCondition"
+		resultType="int">
+		WITH CareerDuration AS (
+		SELECT
+		FC.freelance_id,
+		SUM(DATEDIFF(MONTH, FC.start_date, FC.end_date)) AS total_months
+		FROM FREELANCE_CAREER FC
+		GROUP BY FC.freelance_id
+		)
+		SELECT count(*)
+		FROM( SELECT
+		F.id,
+		F.name,
+		F.registration_date,
+		F.telephone,
+		F.email,
+		COALESCE(
+		NULLIF(
+		CONCAT(
+		CASE
+		WHEN CD.total_months / 12 &gt; 0 THEN CAST(CD.total_months / 12 AS
+		NVARCHAR(MAX)) + N'년 '
+		ELSE N''
+		END,
+		CASE
+		WHEN CD.total_months % 12 &gt; 0 THEN CAST(CD.total_months % 12 AS
+		NVARCHAR(MAX)) + N'개월'
+		ELSE N''
+		END
+		), ''
+		), '경력없음'
+		) AS career,
+		<include refid="skill_name" />
+		AS skill_name,
+		<include refid="grade" />
+		AS grade
+		FROM FREELANCE F
+		LEFT JOIN CareerDuration CD ON F.id = CD.freelance_id
+		LEFT JOIN SKILL S ON F.id = S.freelance_id
+		WHERE 1=1
+		<include refid="searchCondition" />
+		GROUP BY F.id, F.name, F.registration_date, F.telephone, F.email,
+		CD.total_months
+		) a;
+	</select>
+
+	<!-- 3. 프리랜스 평가 조회 -->
+	<select id="getRateList" parameterType="int" resultType="FreelanceRateDto">
+		SELECT fr.id, evaluation, fr.freelance_id, e.name AS e_name, fr.registration_date
+		FROM FREELANCE_RATE fr, FREELANCE f, EMPLOYEE e
+		WHERE fr.freelance_id = f.id and fr.employee_id = e.id and fr.freelance_id = #{freelance_id};
+	</select>
+
+	<!-- 4. 프리랜스 인원 수 -->
+	<select id="getFreeCount" resultType="int">
+		SELECT count(*)
+		FROM
+		FREELANCE;
+	</select>
+	<!-- 5. 프리랜스 평가 입력 -->
+	<insert id="insertRate" parameterType="FreelanceRateDto">
+		INSERT INTO
+		FREELANCE_RATE(evaluation, freelance_id, employee_id)
+		VALUES(${evaluation}, ${freelance_id}, ${employee_id})
+	</insert>
+
+	<!-- 6. 프리랜스 현황 조회 -->
+	<select id="getFreelanceSkill" resultType="FreelanceSkillDto">
+		SELECT
+		sc.code AS code,
+		sc.name AS skill_category,
+		cc.name AS skill_name,
+		SUM(CASE WHEN
+		s.level = 'A' THEN 1 ELSE 0 END) AS skill_level_A,
+		SUM(CASE WHEN
+		s.level = 'B' THEN 1 ELSE 0 END) AS skill_level_B,
+		SUM(CASE WHEN
+		s.level = 'C' THEN 1 ELSE 0 END) AS skill_level_C,
+		SUM(CASE WHEN
+		s.level IN ('A', 'B', 'C') THEN 1 ELSE 0 END) AS skill_sum
+		FROM
+		COMMON_CODE sc
+		JOIN
+		COMMON_CODE cc ON sc.code = cc.super_code
+		LEFT JOIN
+		SKILL s ON
+		cc.code = s.skill_code
+		WHERE
+		sc.super_code = 'SOFT' and s.id_type =1
+		AND
+		cc.super_code IN ('DB', '.NET', 'LANGU', 'FRAME', 'SERVE')
+		GROUP BY
+		cc.ord, sc.ord, sc.name, cc.name, sc.code
+		ORDER BY
+		sc.ord asc,
+		cc.name asc;
+	</select>
+
+	<!-- 7. 프리랜스 현황 인원 수 카운트 -->
+	<select id="selectSkillCount" resultType="hashmap">
+		SELECT cc.code AS code,
+		COUNT(s.code) AS count
+		FROM COMMON_CODE cc
+		JOIN COMMON_CODE s
+		ON cc.code
+		= s.super_code
+		WHERE cc.super_code = 'SOFT'
+		GROUP BY cc.code;
+	</select>
+
+	<!-- 8. 프리랜스 현황 상세보기 -->
+	<select id="selectSkillDetail" resultType="FreelanceDto">
+		SELECT
+		cc.super_code AS skill_category,
+		cc.name AS skill_name,
+		f.name AS name,
+		(
+		CASE
+		WHEN s.level = 'A' THEN '상'
+		WHEN s.level = 'B' THEN '중'
+		WHEN s.level = 'C' THEN '하'
+		ELSE '스킬없음'
+		END
+		) AS skill_level,
+		f.telephone AS telephone,
+		f.email AS email
+		FROM COMMON_CODE sc
+		JOIN COMMON_CODE cc ON sc.code = cc.super_code
+		LEFT JOIN SKILL s ON cc.code = s.skill_code
+		LEFT JOIN FREELANCE f ON f.id =s.freelance_id
+		WHERE
+		sc.super_code = 'SOFT' and s.id_type =1
+		AND cc.super_code = #{skill_category}
+		AND s.level like '%' + #{skill_level} +'%'
+		AND cc.super_code IN ('DB', 'LANGU', 'FRAME', 'SERVE')
+		<if test="skill_name != null and skill_name != ''">
+			AND cc.name = #{skill_name} 
+		</if>
+		ORDER BY
+		skill_name asc, skill_level asc, f.id desc;
+	</select>
+	<!-- 9. 프리랜스 리스트 스킬 상세조회 -->
+	<select id="selectListSkill" parameterType="int" resultType="FreelanceDto">
+		SELECT
+		f.name AS name,
+		cc.name AS skill_name,
+		(
+		CASE
+		WHEN s.level = 'A' THEN '상'
+		WHEN s.level = 'B' THEN '중'
+		WHEN s.level = 'C' THEN '하'
+		ELSE '스킬없음'
+		END
+		) AS skill_level
+		FROM COMMON_CODE sc
+		JOIN COMMON_CODE cc ON sc.code = cc.super_code
+		LEFT JOIN SKILL s ON cc.code = s.skill_code
+		LEFT JOIN FREELANCE f ON f.id =s.freelance_id
+		WHERE
+		sc.super_code = 'SOFT' and s.id_type =1 and s.freelance_id = #{id}
+		AND
+		cc.super_code IN ('LANGU', 'DB', 'FRAME', 'SERVE')
+		ORDER BY
+		s.level asc, sc.ord, cc.name;
+	</select>
+	<!-- 10. 프리랜스 정보 불러오기 -->
+	<select id="getFreeUpdate" parameterType="int" resultType="FreelanceDto">
+		WITH CareerDuration AS (
+		    SELECT
+		        FC.freelance_id,
+		        SUM(DATEDIFF(MONTH, FC.start_date, FC.end_date)) AS total_months
+		    FROM FREELANCE_CAREER FC
+		    GROUP BY FC.freelance_id
+		)
+		SELECT F.id, F.name,f.birthday, F.gender, F.location, F.price, F.location, F.project, F.registration_date, F.telephone, F.email, F.path,
+			<include refid="career"/> AS career,
+			<include refid="grade"/> AS grade,
+			<include refid="skill_name"/> AS skill_name
+		FROM FREELANCE F
+		LEFT JOIN CareerDuration CD ON F.id = CD.freelance_id
+		LEFT JOIN SKILL S ON F.id = S.freelance_id
+		WHERE f.id= #{id}
+		GROUP BY F.id, F.name,f.birthday, F.gender, F.location, F.price, F.location, F.project, F.registration_date, F.telephone, F.email, F.path, CD.total_months;
+	</select>
+	
+	<select id="getOnlySkills" parameterType="int" resultType="FreelanceDto">
+		SELECT <include refid="skill_name"/> AS skill_name
+		FROM FREELANCE F
+		LEFT JOIN SKILL S ON F.id = S.freelance_id
+		WHERE f.id= #{id}
+	    group by f.id;
+	</select>
+	<!-- 11. 프리랜스 정보 수정 -->
+	<update id="freeUpdate" parameterType="FreelanceDto">
+		UPDATE FREELANCE
+		SET name = #{name},
+		telephone = #{telephone},
+		birthday = NULLIF(CONVERT(DATE, #{birthday}), '1900-01-01'),
+		gender = #{gender},
+		email = #{email},
+		location = #{location},
+		price = #{price},
+		project = #{project},
+		path = #{path}
+		WHERE id = #{id}
+	</update>
+	<!-- 12. 프리랜스 커리어 조회 -->
+	<select id="getFreeCareer" parameterType="int" resultType="FreelanceCareerDto">
+		select fc.id, fc.title, fc.start_date, fc.end_date, fc.client, fc.task, fc.comment
+		from FREELANCE_CAREER fc
+		join FREELANCE f on fc.freelance_id = f.id
+		where  fc.freelance_id= #{freelance_id}
+		order by start_date asc;
+	</select>
+	<!-- 13. 프리랜스 커리어 추가 -->
+	<insert id="insertCareer" parameterType="FreelanceCareerDto">
+		INSERT INTO
+		FREELANCE_CAREER(title, start_date, end_date, client, task, comment, freelance_id)
+		VALUES(#{title}, NULLIF(CONVERT(DATE, #{start_date}), '1900-01-01'), NULLIF(CONVERT(DATE, #{end_date}), '1900-01-01'), #{client}, #{task}, #{comment}, #{freelance_id})
+	</insert>
+	<!-- 14.프리랜스 커리어 삭제 -->
+	<delete id="deleteCareer" parameterType="int">
+		DELETE
+		FROM FREELANCE_CAREER
+		WHERE id = #{id}
+	</delete>
+	<!-- 15. 프리랜스 경력 수정 -->
+	<update id="updateCareer" parameterType="FreelanceCareerDto">
+		UPDATE FREELANCE_CAREER
+		SET title = #{title}, start_date = NULLIF(CONVERT(DATE, #{start_date}), '1900-01-01'), end_date = NULLIF(CONVERT(DATE, #{end_date}), '1900-01-01'), client = #{client}, task = #{task}, comment = #{comment}
+		WHERE id = #{id};
+	</update>
+	<!-- 16.profileUpload -->
+	<select id="checkProfileUpload" resultType="FreelanceDto">
+	    SELECT path
+	    FROM FREELANCE
+	    WHERE id = #{id}
+
+	</select>
+
+	<!-- 17. 전문분야 리스트 불러오기 -->
+	<select id="getSkill" resultType="FreelanceSkillDto">
+		SELECT sc.code as skill_category, sc.name as skill_name, cc.code as code, cc.name as name
+		FROM COMMON_CODE cc2 
+		JOIN COMMON_CODE cc1 ON cc2.code = cc1.super_code 
+		JOIN COMMON_CODE sc ON cc1.code = sc.super_code 
+		JOIN COMMON_CODE cc ON sc.code = cc.super_code
+		WHERE cc2.code = 'skill' and cc1.code = 'SOFT'
+		ORDER BY cc1.ord, sc.ord, cc.name;
+	</select>
+	<!-- 18. 프리랜스 보유 전문분야 불러오기  -->
+	<select id="getSkillSelect" resultType="FreelanceSkillDto" parameterType="int">
+		SELECT sc.code as skill_category, sc.name as skill_name, cc.code as code, cc.name as name, s.freelance_id, s.level 
+		FROM COMMON_CODE cc2 
+		JOIN COMMON_CODE cc1 ON cc2.code = cc1.super_code 
+		JOIN COMMON_CODE sc ON cc1.code = sc.super_code 
+		JOIN COMMON_CODE cc ON sc.code = cc.super_code
+		JOIN SKILL s ON cc.code = s.skill_code 
+		WHERE cc2.code = 'skill' and cc1.code = 'SOFT' and s.id_type = 1 and s.freelance_id = #{freelance_id}
+		ORDER BY cc1.ord, sc.ord, cc.name;	
+	</select>
+	<!-- 19. 프리랜스 전문분야 삭제 -->
+	<delete id="deleteFreeSkill" parameterType="int">
+		DELETE
+		FROM SKILL 
+		WHERE freelance_id = #{freelance_id} and id_type = 1;
+	</delete>
+	
+	<!-- 20. 프리랜스 전문분야 생성 -->
+	<insert id="insertFreeSkill" parameterType="FreelanceSkillDto">
+		INSERT INTO
+		SKILL(skill_code, level, freelance_id, id_type)
+		VALUES(#{code}, #{level}, #{freelance_id}, 1);
+	</insert>
+	
+	<!-- 21. 프리랜스 삭제  -->
+	<delete id="deleteFreelance" parameterType="int">
+		DELETE FROM FREELANCE_RATE WHERE freelance_id = #{id};
+		DELETE FROM FREELANCE_CAREER  WHERE freelance_id = #{id};
+		DELETE FROM SKILL  WHERE freelance_id = #{id};
+		DELETE FROM FREELANCE  WHERE id = #{id};
+	</delete>
+	<!-- 프리랜서 신규등록 insert -->
+	<insert id="insertFreelance" parameterType="FreelanceDto"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO FREELANCE (
+		name,
+		telephone,
+		birthday,
+		gender,
+		email,
+		location,
+		price,
+		project
+		) VALUES (
+		#{name},
+		#{telephone},
+		NULLIF(CONVERT(DATE, #{birthday}), '1900-01-01'),
+		#{gender},
+		#{email},
+		#{location},
+		#{price},
+		#{project}
+		);
+	</insert>
+
+	<!-- 프리랜서 경력 -->
+	<insert id="insertFreelanceCareer">
+		INSERT INTO FREELANCE_CAREER(
+		title,
+		start_date,
+		end_date,
+		client,
+		task,
+		comment,
+		freelance_id
+		) VALUES (
+		#{title},
+		#{start_date},
+		#{end_date},
+		#{client},
+		#{task},
+		#{comment},
+		#{freelance_id}
+		);
+	</insert>
+	
+	<update id="updateProfileImagePath" parameterType="hashmap">
+		UPDATE FREELANCE SET path = #{path} WHERE id = #{id};
+	</update>
+	
+	<select id="freeTask" resultType="FreelanceCommonDto">
+		select cc2.name, cc2.code, cc2.ord
+		from COMMON_CODE cc
+		join COMMON_CODE cc2 ON cc.code = cc2.super_code
+		where cc.code = 'part'
+		order by cc2.ord;
+	</select>
+</mapper>

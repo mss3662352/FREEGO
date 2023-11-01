@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="member">
+
+	<!--로그인 -->
+	<select id="idCk" resultType="com.java.FREEGO.domain.MemberDto">
+	    select 
+	        A.employee_number,
+	        A.password,
+	        A.name,
+	        A.login_authority,
+	        A.profile_photo,
+	        A.id,
+	        A.join_date,
+	        B.name AS employment_status_code,
+	        C.name AS position_code,
+	        D.name AS responsibility_duty_code,
+	        E.name AS department_code
+	    from
+	        EMPLOYEE as A
+	        LEFT JOIN COMMON_CODE as B on A.employment_status_code = B.code <!-- 재직 -->
+	        LEFT JOIN COMMON_CODE as C on A.position_code = C.code  <!-- 직급 -->
+	        LEFT JOIN COMMON_CODE as D on A.responsibility_duty_code = D.code <!-- 직책 -->
+	        LEFT JOIN COMMON_CODE as E on A.department_code = E.code <!-- 부서 -->
+	    where
+			employee_number = #{employee_number}
+
+	</select>
+	
+	<!-- 시스템 로그 -->
+	<insert id="syslog">
+		insert into SYSTEM_LOG
+		(
+			employee_number,
+			ip,
+			activity_code
+		)
+		values 
+		(
+			#{employee_number},
+			#{ip},
+			#{activity_code}
+		)
+	</insert>
+	
+	<select id="checkPw" resultType="com.java.FREEGO.domain.MemberDto">
+	    select 
+	        password
+	    from
+	        EMPLOYEE as A
+	    where
+			id = #{id}
+
+	</select>
+	
+	<update id="changePw" parameterType="com.java.FREEGO.domain.MemberDto">
+		update EMPLOYEE set 
+			password = #{password}
+		where
+			id = #{id}
+	</update>
+	<update id="empInfoUpdate" parameterType="com.java.FREEGO.domain.MemberDto">
+		UPDATE 
+ 			EMPLOYEE 
+ 		SET 
+		 	name = #{name},
+		 	employee_number = #{employee_number},
+		 	national_id = #{national_id}, 
+		 	english_name = #{english_name}, 
+		 	phone_number = #{phone_number}, 
+		 	email = #{email}, 
+		 	hobby = #{hobby}, 
+		 	skill = #{skill}, 
+		 	address = #{address}, 
+		 	home_phone = #{home_phone}, 
+		 	employment_status_code = #{employment_status_code}, 
+		 	national_researcher_id = #{national_researcher_id}, 
+		 	local_foreigner_distinction = #{local_foreigner_distinction}, 
+		 	nationality = #{nationality},
+		 	lunar_birthday = #{lunar_birthday},  
+		 	marriage_status = #{marriage_status},
+		 	anniversary_date = #{anniversary_date},
+		 	number_of_children = #{number_of_children},
+		 	residence_type = #{residence_type},
+		 	owns_vehicle = #{owns_vehicle}
+		 WHERE
+		 	id = #{id}
+	</update>
+	
+
+
+</mapper>

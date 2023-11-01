@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+.sub-title{justify-content: start;}
+#codeTable_div{
+		height: 380px;
+		overflow: auto;
+	}
+div.code{
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 15px;
+	margin-bottom: 12px;
+}
+	/* .table-type01 {width:100%; background-color:#fff;}
+.table-type01 thead {position: sticky; top: 0; border-top: 2px solid #1fabf2 !important;} */
+#path_div{
+	font-size: 17px;
+}
+#path_header{
+	font-weight: bold;
+}
+#path_div, #path_header, #code_path{
+	display: inline-block;
+}
+#code_path span[code], #code_path span[id], #codeTable tbody tr{
+	cursor: pointer;
+	user-select: none;
+}
+#code_path span:last-child{
+	font-weight: bold;
+	color: #008ace;
+}
+#code_path span[code]:hover, #code_path span[id]:hover{
+	font-weight: bold;
+	color: #008ace;
+}
+#codeTable tbody tr.active{
+	background-color: #4eabd9;
+}
+#codeSearchBtn {
+	display:inline-block;
+	vertical-align: middle;
+	background:url(/resources/img/common/btn-search3.png)#3b79b6 no-repeat 20% 50%;
+	color:#fff;
+	border:none;
+	border-radius: 4px;
+	padding:7px 18px 8px 36px !important;
+}
+.table-type01 td.codeDesc{
+	text-align:left;
+}
+.cont-sub-title{
+	display: flex;
+	height: 35px;
+}
+#btnGroup{
+	margin-top: 20px;
+}
+#msg_div_btn{
+	height: 30px;
+}
+#msg_btn{
+	font-weight: bold;
+}
+#msg_search{
+	margin-left: 200px;
+}
+.tooltip{
+	float: right;
+	width: 30px;
+	height: 30px;
+	background-color: #008ace;
+	text-align: center;
+	line-height: 30px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.tooltip:hover {
+	position: relative;
+}
+.tooltip:hover:after {
+	background-color: #000000;
+	background-color: rgba(0, 0, 0, 0.8);
+
+	-webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+	color: #FFFFFF;
+	content:
+		"코드 클릭 : 우측의 코드관리 영역에 해당 코드의 상세 정보를 표시합니다\A"
+		"코드 더블클릭 : 해당 코드의 하위 코드로 진입합니다\A"
+		"[신규 코드 추가] 버튼 클릭: 현재 분류 내에 신규 코드를 등록하기 위한\A    입력창,버튼이 활성화 됩니다\A"
+		"\A※ [부서] 에 속한 모든 하위 코드는 [조직도 관리 페이지]에서 관리할 수 있습니다 ※";
+	white-space: pre;
+
+	text-align: left;
+	font-size: 13px;
+	font-weight: normal;
+  	margin-bottom: 10px;
+	top: 130%;
+	left: 0;    
+	padding: 7px 12px;
+	position: absolute;
+	width: auto;
+	min-width: 380px;
+	max-width: 425px;
+	word-wrap: break-word;
+
+	z-index: 9999;
+}
+br{
+	display: block;
+}

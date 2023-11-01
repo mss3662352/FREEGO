@@ -1,0 +1,170 @@
+@charset "UTF-8";
+#orgBody {
+    position: relative;
+}
+
+#orgBody .background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+}
+
+#orgBody .background.on {
+    display: block;
+}
+
+#orgBody .background .contentarea {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    width: 70%;
+    height: 80%;
+}
+
+#orgBody .background .contentarea .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: yellow;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+#orgBody .background .contentarea .close span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #000;
+    width: 30px;
+    height: 2px;
+}
+
+#orgBody .background .contentarea .close span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#orgBody .background .contentarea .close span:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+#orgBody .popup-container {
+    width: 800px; /* 원하는 너비 값으로 조정하세요 */
+}
+#orgBody .org-bg{
+	background-color: #000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+}
+#orgBody .table-type02.w900 {
+    width: 100%; /* 부모 요소에 맞게 100%로 설정합니다. */
+}
+#orgBody .orgbtn:hover {
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
+    background-color: #f0f0f0; /* 클릭 표시 배경색을 변경하세요. */
+}
+#orgBody .orgModal:hover {
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
+    background-color: #f0f0f0; /* 클릭 표시 배경색을 변경하세요. */
+}
+
+
+#sysorg {
+	position: relative;
+}
+
+#sysorg .background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    z-index: 9999999;
+}
+
+#sysorg .background.on {
+    display: block;
+}
+
+#sysorg .td.membtn{
+	margin-right: 10px;
+}
+#sysorg .col-2 {
+    width: 50%; /* 화면의 반정도로 설정 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
+}
+.table-type01 td {white-space: nowrap;}
+
+
+
+/* CSS 스타일을 추가하여 들여쓰기와 아이콘을 표시합니다. */
+.subDeptRow {
+    margin-left: 50px; /* 들여쓰기 크기를 조절하세요. */
+}
+
+#sysorg .subDeptRow .treeadd:before {
+    content: "\f07b"; /* 폴더 아이콘 (FontAwesome 아이콘 코드) */
+    margin-right: 5px;
+}
+
+#sysorg .subDeptRow.collapsed .treeadd:before {
+    content: "\f114"; /* 접혀진 폴더 아이콘 */
+}
+
+/* 클릭하여 하위 부서 펼치기/접기 기능 추가 */
+#sysorg .subDeptRow.collapsed > * {
+    display: none;
+}
+
+#sysorg .treeadd:hover {
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
+    background-color: #f0f0f0; /* 클릭 표시 배경색을 변경하세요. */
+}
+
+#sysorg .roword {
+    text-align: left;
+}
+#sysorg .row-2{
+	 width: 50%; /* 화면의 반정도로 설정 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
+}
+
+
+#profile_Area {width : 130px; height: 154px; border: 1px solid #f1f1f1; overflow: hidden;}
+#profile_Area img {width : 100%; height:auto;}
+
+.popup-profile {
+    display: flex;
+    align-items: flex-start; /* 세로 중앙 정렬 */
+}
+
+#profile_Area img {
+    margin-right: 20px; /* 이미지 오른쪽 간격 설정 */
+}
+.popup-profile-txt h5 {
+    margin: 0; /* 기본 마진 제거 */
+      font-size: 30px;
+    margin-bottom: 10px; /* 원하는 간격으로 설정 */
+    margin-left: 10px;
+/*      font-weight: normal; */
+}
+
+.popup-profile-txt p {
+    margin: 0; /* 기본 마진 제거 */
+      font-size: 18px; 
+    margin-bottom: 10px; 
+    margin-left: 10px;
+    
+}
+
+.popup-header .btn-close2{cursor: pointer; background:url(../img/common/popup-close.png) #888 no-repeat center center;width: 24px;height: 24px;}

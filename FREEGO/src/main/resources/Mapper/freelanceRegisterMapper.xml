@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.java.FREEGO.dao.freelanceRegisterMapper">
+	<!-- 프리랜서 신규등록 insert -->
+	<insert id="insertFreelance" parameterType="FreelanceDto"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO FREELANCE (
+		name,
+		telephone,
+		birthday,
+		gender,
+		email,
+		location,
+		price,
+		project
+		) VALUES (
+		#{name},
+		#{telephone},
+		NULLIF(CONVERT(DATE, #{birthday}), '1900-01-01'),
+		#{gender},
+		#{email},
+		#{location},
+		#{price},
+		#{project}
+		);
+	</insert>
+
+	<!-- 프리랜서 경력 -->
+	<insert id="insertFreelanceCareer">
+		INSERT INTO FREELANCE_CAREER(
+		title,
+		start_date,
+		end_date,
+		client,
+		task,
+		comment,
+		freelance_id
+		) VALUES (
+		#{title},
+		#{start_date},
+		#{end_date},
+		#{client},
+		#{task},
+		#{comment},
+		#{freelance_id}
+		);
+	</insert>
+	
+	<update id="updateProfileImagePath" parameterType="hashmap">
+		UPDATE FREELANCE SET path = #{path} WHERE id = #{id};
+	</update>
+</mapper>

@@ -1,0 +1,165 @@
+/* LNB */
+.lnb-profile{padding:20px;}
+.lnb-profile-img{display:flex; justify-content:center; align-items:center; gap:10px;}
+.lnb-profile-img > a > img{height:80px;}
+.lnb-profile-txt > ul > li:nth-child(1){font-size:12px; margin-bottom:1px;}
+.lnb-profile-txt > ul > li:nth-child(2){font-size:17px; font-weight:700; display: flex; align-items: baseline;}
+.lnb-profile-txt > ul > li:nth-child(2) span{font-size:14px; font-weight:400; margin-left:4px;}
+.lnb-profile-btn-box{margin-top:20px;}
+.lnb-profile-btn-box ul{display:flex; justify-content:center; align-items:center; gap:6px;}
+.lnb-profile-btn-box ul li{width:calc(50% - 4px)}
+.lnb-profile-btn-box ul li a{display: block; width:100%; padding: 7px 5px 7px 5px; border-radius: 5px; text-align: center; font-size: 13px;}
+.lnb-profile-btn-box ul li:nth-child(1) a{background: #dbdbdb;}
+.lnb-profile-btn-box ul li:nth-child(2) a{background: #303d4d; color: #fff;margin-bottom: 0;}
+.lnb-profile-search-input{position:relative; margin-top:10px;}
+.lnb-profile-search-input > input[type="text"]{padding:8px 12px;}
+.lnb-profile-search-input > .btn-search2{top:10px;}
+
+.lnb-menu-wrap{height: calc(100% - 400px);}
+
+.lnb-footer{text-align:center; padding:10px 20px; margin:0 auto;}
+.lnb-footer > img{margin-bottom:10px;}
+.lnb-footer > p{font-size:14px; color:#666;}
+
+
+/* login */
+.login-wrap{width:100%; height:100%; background-color:#f4f4f4; display:flex; justify-content:center; align-items:center;}
+.login-box{width:auto; max-width:800px; height:calc(100% - 100px); max-height:500px; padding:20px; border:1px solid #ccc; background-color:#fff;}
+.login-content{display:flex; justify-content:center; align-items:center; height:calc(100% - 50px);}
+.login-content .left-box{width:50%; padding:30px;}
+.login-content .left-box h1{font-size:32px; font-weight:700;}
+.login-bg{margin-top:20px; text-align:right;}
+.login-bg img{width:240px;}
+.login-content .right-box{width:50%; padding:30px;}
+.login-content .right-box h2{text-align:center; font-size:28px; margin-bottom:20px;}
+.login .input label{font-weight:700; font-size:16px;}
+.login .input input{margin:4px auto 10px; padding:5px 10px; font-size:17px;}
+.btn-login{width:100%; padding:10px; background-color:#222; color:#fff; margin-top:30px; margin-bottom:10px; text-align:center; cursor: pointer; font-weight:600}
+.btn-register{width:100%; padding:10px; background-color:#dbdbdb; color:#fff; margin-bottom:20px; text-align:center; cursor: pointer; font-weight:600}
+.login-guid{text-align:center; padding:10px 20px; color:#888;}
+.login-footer{text-align:center; line-height:30px; font-size:14px; margin-top:20px;}
+
+/* �씤�궗�젙蹂� */
+.btn-cert{background-color:#565656; display:block; vertical-align: middle; border-radius: 4px; padding: 6px 9px 5px 10px; margin-top:6px; font-size: 14px; color:#fff; cursor: pointer}
+
+/* 寃��깋/議고쉶 */
+.box-sum{display: block; padding:6px 16px;background-color:#f8f8f8; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; margin-bottom:10px;}
+.box-sum > span, .box-sum > a{color:#008ace; margin-left:6px;}
+.box-sum > a:hover{border-bottom:1px solid #008ace;}
+
+/* �봽由щ옖�뒪 �쁽�솴 */
+.table-btn-wrap{display:flex; justify-content:flex-end; align-items:center; gap:6px; margin-top:10px;}
+.table-btn{display:block; background-color:#325694; color:#fff; padding:5px 20px; border-radius:2px;}
+
+/* ————————————————————–
+  Tree core styles
+*/
+.tree { margin: 1em; }
+
+.tree input {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  }
+ 
+.tree input ~ ul { display: none; } 
+ 
+/* .tree input:checked ~ ul { display: block; }     체크박스 동작을 닫았음 js에서 해결 */
+/* ————————————————————–
+  Tree rows
+*/
+.tree li {
+  line-height: 1.2;
+  position: relative;
+  padding: 0 0 1em 1em;	
+  }
+
+.tree ul li { padding: 1em 0 0 1em; }
+
+.tree > li:last-child { padding-bottom: 0; }
+
+/* ————————————————————–
+  Tree labels
+*/
+.tree_label {
+  position: relative;
+  display: inline-block;
+  background: #fff;
+  }
+
+label.tree_label { cursor: pointer; }
+
+label.tree_label:hover { color: #666; }
+
+/* ————————————————————–
+  Tree expanded icon
+*/
+label.tree_label:before {
+	background: #000;
+	color: #fff;
+	position: relative;
+	z-index: 1;
+	float: left;
+	margin: 0 1em 0 -2em;
+	width: 1em;
+	height: 1em;
+	border-radius: 1em;
+	content: '+';
+	text-align: center;
+	line-height: 1.1em;
+}
+
+:checked ~ label.tree_label:before { content: '–'; }
+
+/* ————————————————————–
+  Tree branches
+*/
+.tree li:before {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: -.5em;
+	display: block;
+	width: 0;
+	border-left: 1px solid #777;
+	content: "";
+}
+
+.tree_label:after {
+  position: absolute;
+  top: 0;
+  left: -1.5em;
+  display: block;
+  height: 0.5em;
+  width: 1em;
+  border-bottom: 1px solid #777;
+  border-left: 1px solid #777;
+  border-radius: 0 0 0 .3em;
+  content: '';
+  }
+
+label.tree_label:after { border-bottom: 0; }
+
+:checked ~ label.tree_label:after {
+  border-radius: 0 .3em 0 0;
+  border-top: 1px solid #777;
+  border-right: 1px solid #777;
+  border-bottom: 0;
+  border-left: 0;
+  bottom: 0;
+  top: 0.5em;
+  height: auto;
+  }
+
+.tree li:last-child:before {
+  height: 1em;
+  bottom: auto;
+  }
+  
+.tree > li:last-child:before { display: none; }
+
+.tree_custom {
+  display: block;
+  background: #eee;
+  padding: 1em;
+  border-radius: 0.3em;
+}

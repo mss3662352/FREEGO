@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+
+#profile_Area {width : 130px; height: 160px; border: 1px solid #f1f1f1; overflow: hidden;}
+#profile_Area img {width : 100%; height:auto;}
+
+#profile_Area1 {width : 140px; height: 152px; border: 1px solid #f1f1f1; overflow: hidden;}
+#profile_Area1 img {width : 100%; height:auto;}
+
+#passwordChange {
+	width : 688px !important;
+	min-width: 688px!important;
+	border-radius : 0;
+	padding:0;
+
+ }
+
+#passwordChange .popup-cont {
+	height: 100%;
+}
+
+.sessionTime {
+	text-align: center;
+	border:1px solid #e8e8e8;
+	color:#333;
+	font-size :12px;
+	letter-spacing: -1px;
+	font-weight: 600;
+	border-radius:5px;
+	margin-top:5px;
+	padding :7px 15px;
+	box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}

@@ -1,0 +1,107 @@
+/*공통 popup CSS*/
+.popup-flwrap{width: 100%; height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 666; background-color:rgba(0,0,0,0.7);}
+/* .popup-flbg{background-color:#000; opacity: 0.7; width: 100%; height: 100%;} */
+.popup-flcontainer{min-width:400px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff;}
+.popup-flheader{background-color: #ededed; padding: 10px 20px 9px 20px; display: flex; justify-content: space-between; align-items: center;}
+.popup-flheader h4{font-size: 18px;}
+.popup-flheader .btn-close{cursor: pointer; background:url(../img/common/popup-close.png) #888 no-repeat center center;width: 24px;height: 24px;}
+.popup-flcontents-wrap{padding: 40px 30px; max-height: calc(100vh - 60px); overflow-y: auto;}
+.popup-flcont.popup-flwarn{padding:10px 0 10px 100px; min-height:70px; background:url(../img/common/popup-warn.png) no-repeat left center;}
+.popup-flcont > h3{display:flex;color:#008ace; font-size:20px; margin-bottom:20px;}
+.popup-flcont > h3 > span{display:flex; align-items:center; color:#333; font-size:16px;}
+.popup-flcont > h3 > span:before{content:''; display:inline-block; background-color:#666; width:2px; height:16px; margin:0 10px;}
+.popup-flcont h4{position:relative; font-size:17px; margin-bottom:6px; display:flex; align-items:center;}
+.popup-flcont h4:before{content:''; background-color:#008ace; width:2px; height:16px; display:inline-block; margin-right:6px;}
+.popup-flcont > h5{font-size:17px; margin-bottom:4px;}
+.popup-flcont .desc1{font-size: 13px; margin-bottom: 10px;}
+.popup-flcont .desc2{font-size: 14px; margin-top: 10px; text-align: right;}
+.popup-flcont .desc2 span{display: inline-block; width: 15px; height: 15px; border-radius: 50px; border: 1px solid #ff0202; color: #ff0202; font-size: 11px; padding: 1px 5px; margin-top: -2px; margin-right: 8px;}
+.popup-input-wrap {max-width:300px; margin:0 auto;}
+.popup-input-wrap > label{font-size:15px; font-weight:700; margin-bottom:6px; color:#000;}
+.popup-input-wrap > input{font-size:15px; margin-bottom:20px;}
+.popup-flcont-bottom{border-top:1px solid #666; color:#666; font-size:14px; padding-top:10px; margin-top:20px;}
+.popup-flprofile{display: flex; align-items:center; gap:20px; margin-bottom:20px; justify-content : space-around;}
+.popup-flprofile > a > img{height:120px;}
+
+
+
+.comm-flbtn{display: inline-block; white-space: nowrap; width:auto; background-color: #3b79b6; color: #fff; text-align: center; padding: 6px 10px 7px; border: 1px solid #eaeaea; border-radius: 4px; font-size: 13px; font-weight: 500;}
+.comm-flbtn:hover{background-color: #2e76bd; color: #fff;}
+.btn-search-img{background: url(../img/common/btn-search2.png)no-repeat; width: 31px; height: 28px; display: inline-block;}
+.free-flbtn-manage {
+    display: flex;
+    justify-content: space-between;
+}
+
+.free-btn-manage{
+	display : flex;
+	justify-content: center;
+}
+
+.delete-btn{display:block; background-color:#565656; color:#fff; padding:5px 20px; border-radius:2px; cursor: pointer; margin:0 auto;}
+#profile_Area_free1 {width : 130px; height: 154px; border: 1px solid #f1f1f1; overflow: hidden;}
+#profile_Area_free1 img {width : 100%; height:auto;}
+
+
+.btn-search-img{background: url(../img/common/btn-search2.png)no-repeat; width: 31px; height: 28px; display: inline-block;}
+.exprt{position: relative;}
+.exprt .btn-search2{display: inline-block; background: url(../img/common/btn-search2.png) no-repeat; width: 14px; height: 14px; margin-right: 10px; position: absolute; top: 10px; left: 170px;}
+
+/* 프리랜스수정 스킬 글자 정렬 */
+.free_skill_table{text-align : center;}
+.free_skill_table tr td:first-child{text-align : left}
+/* 프리랜스수정 버튼 */
+.popup-btn-wrap .free_skill_cancel{background-color: #565656;  margin-right: 10px;}
+.popup-btn-wrap .free_skill_update{background-color: #008ace;}
+/* 체크박스 보이게 */
+input[type="checkbox"]{display:inline-block; margin-left: 30px; margin-right : 60px}
+input[type="radio"]{position:relative;}
+#freeExprtModal {
+	position: pixed;
+	overflow: hidden;
+	height: 700px
+}
+/* 스크롤링 */
+.scroll_table_wrap{
+	height: 500px;
+	overflow-y: auto;
+}
+.skill_hidden{white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px;}
+.skill_hidden a{cursor: pointer;}
+.skill_hidden a:hover{text-decoration: underline; text-underline-offset: 2px;}
+#skill1{cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 20px;}
+
+
+.career_hidden{display: none;}
+.freelance_update_title{display:flex; justify-content: space-between;}
+
+
+.project_career{
+	display: flex;
+	justify-content: space-between;
+}
+.add-btn-update{position: relative;
+    margin-right: 20px;
+    border-radius: 50%;
+    background-color: #1192d1;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    right: 10px; bottom:5px;}
+.add-btn-update span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-radius: 10px;
+	background-color:#fff;
+	width: 20px; height:3px;
+}
+.add-btn-update span:first-child {
+	transform: translate(-50%, -50%) rotate(90deg);
+
+}
+.add-btn-update span:last-child {
+	transform: translate(-50%, -50%);
+}
+
+.info-tx2{font-weight:bold; float: rigth; margin-top:-16; font-size:12px; color:#41a7da; text-align:right;}

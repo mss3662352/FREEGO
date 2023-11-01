@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+<configuration>
+<!-- 	<properties resource ="db.properties"/> -->
+	<typeAliases>
+		<typeAlias alias="FreelanceDto" type="com.java.FREEGO.domain.FreelanceDto"/>
+		<typeAlias alias="FreelanceRateDto" type="com.java.FREEGO.domain.FreelanceRateDto"/>
+		<typeAlias alias="FreelanceSkillDto" type="com.java.FREEGO.domain.FreelanceSkillDto"/>
+		<typeAlias alias="FreelanceCareerDto" type="com.java.FREEGO.domain.FreelanceCareerDto"/>
+		<typeAlias alias="FreelanceCommonDto" type="com.java.FREEGO.domain.FreelanceCommonDto"/>
+		<typeAlias alias="SystemAccountDto" type="com.java.FREEGO.domain.SystemAccountDto"/>
+		<typeAlias alias="SystemEmployeeAccountManagementDto" type="com.java.FREEGO.domain.SystemEmployeeAccountManagementDto"/>
+ 		<typeAlias alias="SystemAuthTypeDto" type="com.java.FREEGO.domain.SystemAuthTypeDto"/>
+ 		<typeAlias alias="SearchCondition" type="com.java.FREEGO.domain.SearchCondition"/>
+ 		<typeAlias alias="PageHandler" type="com.java.FREEGO.domain.PageHandler"/>
+ 		<typeAlias alias="SystemScreenDto" type="com.java.FREEGO.domain.SystemScreenDto"/>
+ 		<typeAlias alias="MemberDto" type="com.java.FREEGO.domain.MemberDto"/>
+	</typeAliases>
+</configuration>

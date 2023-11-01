@@ -1,0 +1,14 @@
+
+/* 시스템 로그 CSS */
+.paging-btn2 ul{display: flex; justify-content: center; margin: 20px 0 10px 0;}
+.paging-btn2 ul li{display: inline-block; margin-right: 10px; border: 1px solid #d4d9df; text-align: center; border-radius: 15px; width: 30px; height: 30px;}
+.paging-btn2 ul li a{padding: 5px 5px; display: block; vertical-align: bottom; font-size: 15px; width: 100%; height: 100%;}
+#start-page {display: inline-block; background: url(/resources/img/common/btn-first.png)no-repeat center center;}
+#prev-page {display: inline-block; background: url(/resources/img/common/btn-before.png)no-repeat center center;}
+#next-page {display: inline-block; background: url(/resources/img/common/btn-next.png)no-repeat center center;}
+#end-page {display: inline-block; background: url(/resources/img/common/btn-last.png)no-repeat center center;}
+.paging-btn2 ul .on {background-color: #008ace; border: none;}
+.paging-btn2 ul .on a{color: #fff;}
+.paging-btn2 ul li:nth-child(1) a {
+    display: inline-block;
+}

@@ -1,0 +1,48 @@
+@charset "UTF-8";
+#dashboard_area {
+	position: relative;
+	}
+#dashboard_area  .countList_background{
+	display : none;
+	position: absolute;
+	top : 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	width:100%; height:100vh;
+}
+#dashboard_area  .countList_background.on{
+	display : block;
+}
+#dashboard_area  .countList_background .countList_wrap {
+	position: absolute;
+	top : 50%;
+	left : 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	width : 70%; height:90%;
+}
+
+#dashboard_area  .countList_background .countList_wrap .pop_up_close{
+	cursor: pointer;
+	position: absolute;
+	top : 10px;
+	right : 10px;
+	background-color: #fff;
+	width : 35px; height:35px;
+	
+}
+
+#dashboard_area  .countList_background .countList_wrap .pop_up_close span{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background-color: #000;
+	width : 20px; height:2px;
+}
+
+#dashboard_area  .countList_background .countList_wrap .pop_up_close span:first-child{
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+#dashboard_area  .countList_background .countList_wrap .pop_up_close span:last-child{
+	transform: translate(-50%, -50%) rotate(-45deg);
+}

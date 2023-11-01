@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context classpath:org/springframework/context/config/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx classpath:org/springframework/transaction/config/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/aop classpath:org/springframework/aop/config/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/mvc classpath:org/springframework/web/servlet/config/spring-mvc-4.3.xsd">
+	
+	<!-- 설정파일 설정 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:Properties/globals.properties</value>
+<!-- 				<value>classpath:Properties/page_path.properties</value> -->
+			</list>
+		</property>
+	</bean>	
+	
+	<!-- DB연결 설정 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	
+	<!-- 매퍼 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+        <property name="dataSource" ref="dataSource"></property>
+		<!-- mybatis 설정위치 파일 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<!-- mapper 위치 -->
+        <property name="mapperLocations">
+			<array>
+				<value>classpath:Mapper/*Mapper.xml</value>
+				<value>classpath:Mapper/*/*Mapper.xml</value>
+			</array>
+		</property>
+	</bean>
+	
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg> 
+    </bean>
+	<!--DB트랜잭션 설정 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource">
+    </property></bean>
+    
+    
+<!--     <tx:advice id="txAdvice" transaction-manager="txManager"> -->
+<!--         <tx:attributes> -->
+<!--             <tx:method name="*" rollback-for="Exception"/> -->
+<!--         </tx:attributes> -->
+<!--     </tx:advice> -->
+ 
+<!--     <aop:config> -->
+<!--         <aop:pointcut id="requiredTx" expression="execution(* com..hs.*.*Service.*(..))"/> -->
+<!--         <aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" /> -->
+<!--     </aop:config> -->
+    
+<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
+    
+ 
+    
+<!--     <mvc:interceptors> -->
+<!--         <mvc:interceptor> -->
+<!--             <mvc:mapping path="/*"/> -->
+<!--             <mvc:exclude-mapping path="/"/> -->
+<!--             <mvc:exclude-mapping path="/loginCheck"/> -->
+<!--             <mvc:exclude-mapping path="/sessionExtend"/> -->
+<!--             <mvc:exclude-mapping path="/home*"/> -->
+<!--             <bean id="loginInterceptor" class="com.hs.common.controller.LoginCheckInterceptor"></bean> -->
+<!--         </mvc:interceptor> -->
+<!--     </mvc:interceptors> -->
+    
+</beans>

@@ -1,0 +1,129 @@
+.btn-manage {
+	display: inline-block;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #3b79b6;
+    color: #fff;
+    border: none;
+    padding: 7px 18px 7px 18px;
+    margin: 0px 10px 0px 10px;
+}
+
+
+
+#management-body {
+    position: relative;
+}
+#management-body .emp-update-wrap-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+}
+#management-body .emp-update-wrap-background.on{
+    display: block;
+}
+#management-body .emp-update-wrap-background .emp-update-wrap{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    overflow:hidden;
+    width: 80%; height: 90%;
+}
+
+#management-body .emp-update-wrap-background .emp-update-wrap .emp_update_area {
+	overflow-y: scroll;
+	height: 85%;
+}
+.emp-update-wrap .emp-update-close-btn{position: absolute; top: 15px; right: 20px; width: 35px; height: 35px; cursor: pointer;}
+.emp-update-wrap .emp-update-close-btn span{position: absolute; top: 50%; left: 50%;  width: 25px; height: 3px; border-radius: 25px; background-color: #000;}
+.emp-update-wrap .emp-update-close-btn span:first-child {transform: translate(-50%, -50%) rotate(45deg);}
+.emp-update-wrap .emp-update-close-btn span:last-child {transform: translate(-50%, -50%) rotate(-45deg);}
+.emp-update-wrap .user-e-name{width: 180px;}
+.emp-update-wrap .user-id{width: 200px;}
+.emp-update-wrap .user-age{width: 40px;}
+.emp-update-wrap .user-tel{width: 150px;} 
+.emp-update-wrap .user-home-tel{width: 120px;} 
+.emp-update-wrap .user-email{width: 200px;}
+.emp-update-wrap .user-hobby{width: 100px;} 	
+.emp-update-wrap .user-speciality{width: 100px;} 
+.emp-update-wrap #state-select{width: 70px; color:#1192d1; font-weight:bold;} 
+.emp-update-wrap .user-update-header {width: 100%;}
+.emp-update-wrap .user-update-header h2 {font-size: 20px; color:#1192d1; padding: 10px 0; border-bottom: 2px solid #2b3643;}
+.emp-update-wrap .account-cont > ul > li {display: flex; align-items: center; width: 100%; height:50px; background-color: #fffaf7; border-top: 1px solid #ddd; padding:5px 0 5px 20px;}
+.emp-update-wrap .account-cont > ul > li label{
+	font-size:15px;
+	font-weight: 600;
+} 
+.emp-update-wrap .account-cont > ul > li .checkPw {
+	margin-left:25px;
+}
+#info-update_pwre{
+	margin-left:30px;
+}
+.emp-update-wrap .account-cont > ul > li:last-child {border-bottom: 1px solid #ddd;}
+.emp-update-wrap .account-cont > ul > li > div{width: 120px; text-align: center;  font-size: 16px; font-weight: bold;}
+.emp-update-wrap .account-cont > ul > li > select {height: 90%; color: #1192d1; font-size: 14px; font-weight: bold; padding: 0 0 0 10px;}
+.emp-update-wrap .account-cont > ul > li > #login_auth {display: inline-block; margin-left: 20px;}
+#personal_update_btn{
+	margin-right: 1em;
+}
+
+.sysEmpListArea {
+	position: relative;
+}
+
+.btn-employee-register {
+	position: fixed;
+	right: 50px;
+	bottom : 11px;
+	z-index:1;
+	background-color:#303D4D;
+	border-radius:10px;
+	font-weight: 700;
+	box-shadow: rgba(67, 71, 85, 0.3) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+	line-height:45px;
+	text-align:center;
+	padding:0;
+	width: 130px; height:45px;
+}
+.btn-employee-register:hover{
+	box-shadow: rgb(0, 0, 0, 0.4) 3px 3px 6px 1px inset, rgba(255, 255, 255, 0.5) -2px -2px 5px 0px inset;
+}
+.empUpdate_Box {
+	margin-top:20px!important;
+	margin-bottom: 55px;
+}
+#info-update_pw, #info-update_pwre {width: 180px; height: 90%;}
+..emp-update-wrap .account-cont{}
+#login_auth1 {display: inline-block;}
+#popImgArea{
+	display:flex;
+}
+#profile_Area {width : 130px; height: 154px; border: 1px solid #f1f1f1; overflow: hidden;}
+#profile_Area img {width : 100%; height:auto;}
+#edu-upload-nm {
+	
+}
+.relationship {
+	width:90%
+}
+.cohabitation_status {
+	width:90%
+}
+.support_status {
+	width:90%
+}
+
+.family-info-delete {
+	text-align:center;
+}
+
+.mb-1em {
+	margin-bottom: 1em;
+}

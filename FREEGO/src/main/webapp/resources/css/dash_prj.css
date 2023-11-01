@@ -1,0 +1,62 @@
+ .table-type02-02 {width:100%; border: 1px solid #eaeaea; background-color:#fff;}
+ .table-type02-02 tr {min-height:20px;}
+ .table-type02-02 tr:hover {background-color:#e9f7ff;}
+ .table-type02-02 th {border-bottom:0px; border:1px solid #eaeaea; background-color:#f9f9f9; padding:4px 7px; font-weight:600;}
+ .table-type02-02 th:first-child {border-left:0;}
+ .table-type02-02 th:last-child {border-right:0;}
+ .table-type02-02 td {border:1px solid #eaeaea; padding:4px 7px; text-align:center; font-size:15px; height: 35px;}
+ .table-type02-02 td:first-child {border-left:0;}
+ .table-type02-02 td:last-child {border-right:0;}
+ .table-type02-prj {width:100%; border: 1px solid #eaeaea; background-color:#fff;}
+ .table-type02-prj tr {min-height:20px;}
+ .table-type02-prj tr:hover {background-color:#e9f7ff;}
+ .table-type02-prj th {border-bottom:0px; border:1px solid #eaeaea; background-color:#f9f9f9; padding:4px 7px; font-weight:600;}
+ .table-type02-prj th:first-child {border-left:0;}
+ .table-type02-prj th:last-child {border-right:0;}
+ .table-type02-prj td {border:1px solid #eaeaea; padding:4px 7px; text-align:center; font-size:15px; height: 35px;}
+ .table-type02-prj td:first-child {border-left:0;}
+ .table-type02-prj td:last-child {border-right:0;}
+ 
+ .popup-bg2{background-color:#000; opacity: 0.7; width: 100%; height: 100%;}
+ .popup-cont .desc3{font-size: 25px; margin-bottom: 10px; border-top:1px solid black; border-bottom:1px solid black; }
+ .popup-cont .desc4{font-size: 25px; margin-bottom: 10px; border-top:1px solid black; border-bottom:1px solid black; }
+ .popup-cont .desc5{font-size: 13px; margin-bottom: 10px; color:#008ace;}
+ .popup-container2{width: 95vw; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff;}
+ .popup-container2 > .popup-contents-wrap{padding: 40px 30px;}
+ .popup-container2 > .popup-contents-wrap > .popup-cont{height: 70vh;}
+ .popup-btn-wrap{display: flex; justify-content: center; padding-top: 5px;}
+ .popup-btn-wrap .btn-popup-cancel2{background-color: #565656;  margin-right: 10px;}
+ .popup-container1{width: 80vw; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff;}
+ .popup-container1 > .popup-contents-wrap{padding: 40px 30px;}
+ .popup-container1 > .popup-contents-wrap > .popup-cont{height: 50vh;}
+ .popup-btn-wrap .btn-popup-cancel1{background-color: #565656; margin: 50px 10px 0px 0px;}
+ .count{color:#008ace; margin-left:6px;}
+ .count:hover{border-bottom:1px solid #008ace;}
+ .popload-02{color:#008ace; cursor:pointer;}
+ 
+ 
+  /*대시보드 프로젝트 현황 페이지 팝업창*/
+  /* 대기상태인원 */
+ .table-type02-02 { width:100%;  border-collapse: inherit;}
+ .table-type02-02 tbody th:first-child {border-left:0;}
+ .table-type02-02 tbody td:last-child {border-right:0;}
+ .table-type02-02 tbody th { border-left:1px solid #e8e8e8; border-right:1px solid #e8e8e8; padding:4px 7px; font-weight: 500; background-color: #f7f7f7; border-bottom: 1px solid #e8e8e8; height: 35px;}
+ .table-type02-02 tbody td { padding:4px 7px; border-bottom:1px solid #e8e8e8; background-color:#fff; height: 35px; text-align: center;}
+ .table-type02-02 thead th {position: sticky; top: 0; background-color: #d9d9d9; border: 1px solid #eaeaea;}
+ .btn-close2 {cursor: pointer; background:url(../img/common/popup-close.png) #888 no-repeat center center;width: 24px;height: 24px;}
+ /* 프로젝트인원 */
+ .table-type02-prj { width:100%;  border-collapse: inherit;}
+ .table-type02-prj tbody th:first-child {border-left:0;}
+ .table-type02-prj tbody td:last-child {border-right:0;}
+ .table-type02-prj tbody th { border-left:1px solid #e8e8e8; border-right:1px solid #e8e8e8; padding:4px 7px; font-weight: 500; background-color: #f7f7f7; border-bottom: 1px solid #e8e8e8; height: 35px;}
+ .table-type02-prj tbody td { padding:4px 7px; border-bottom:1px solid #e8e8e8; background-color:#fff; height: 35px; text-align: center;}
+ .table-type02-prj thead th {position: sticky; top: 0; background-color: #d9d9d9; border: 1px solid #eaeaea;}
+ .btn-close1 {cursor: pointer; background:url(../img/common/popup-close.png) #888 no-repeat center center;width: 24px;height: 24px;}
+ .btn-close3 {cursor: pointer; background:url(../img/common/popup-close.png) #888 no-repeat center center;width: 24px;height: 24px;}
+ 
+
+ .chartArea_content{
+  	width: auto;
+  	height: 400px;
+	overflow-y: scroll;
+}
